@@ -5,7 +5,8 @@
        $nr=1;
 
        $result =sqlsrv_query($connect,"SELECT DISTINCT  p.Imie, p.Nazwisko, r.RodzajUrlopu FROM Urolpy$ u, Pracownicy$ p, RodzajeUrlopow$ r  
-       WHERE p.id = u.idPracownika AND u.RodzajUrlopu = r.id  AND (MONTH(u.PoczatekUrlopu) = $getMonth OR MONTH(u.KoniecUrlopu) = $getMonth)", array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
+       WHERE p.id = u.idPracownika AND u.RodzajUrlopu = r.id  AND ((MONTH(u.PoczatekUrlopu) = $getMonth OR MONTH(u.KoniecUrlopu) = $getMonth) OR 
+       ($getMonth BETWEEN MONTH(u.PoczatekUrlopu) AND MONTH(u.KoniecUrlopu)))", array(), array( "Scrollable" => SQLSRV_CURSOR_KEYSET ));
 
        $num_rows = sqlsrv_num_rows($result);
 
